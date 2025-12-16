@@ -23,8 +23,6 @@ class CreateProductRequest extends FormRequest
     {
         return [
             //
-
-            "code" => "required|string|unique:products,code",
             "name" => "required|string",
             "description" => "nullable|string",
             "category" => "required|string",

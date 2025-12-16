@@ -22,7 +22,17 @@ class ProductController extends Controller
     public function store(CreateProductRequest $request)
     {
         //
-        $product = Product::create($request->validated());
+        $product = Product::create([
+            'code' => Product::generateProductCode(),
+            'name' => $request->input('name'),
+            'description' => $request->input('description'),
+            'category' => $request->input('category'),
+            'quantity' => $request->input('quantity'),
+            'reorder_level' => $request->input('reorder_level'),
+            'safety_stock' => $request->input('safety_stock'),
+            'unit' => $request->input('unit'),
+            'location' => $request->input('location'),
+        ]);
         return response()->json($product, 201);
     }
 
