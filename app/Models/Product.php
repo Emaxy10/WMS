@@ -13,11 +13,9 @@ class Product extends Model
         'name',
         'description',
         'category',
-        'quantity',
         'reorder_level',
         'safety_stock',
         'unit',
-        'location',
     ];
 
     public static function generateProductCode(){

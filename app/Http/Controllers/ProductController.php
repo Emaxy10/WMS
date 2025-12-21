@@ -14,6 +14,8 @@ class ProductController extends Controller
     public function index()
     {
         //
+        $products = Product::all();
+        return response()->json($products);
     }
 
     /**
@@ -27,11 +29,9 @@ class ProductController extends Controller
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'category' => $request->input('category'),
-            'quantity' => $request->input('quantity'),
             'reorder_level' => $request->input('reorder_level'),
             'safety_stock' => $request->input('safety_stock'),
             'unit' => $request->input('unit'),
-            'location' => $request->input('location'),
         ]);
         return response()->json($product, 201);
     }
@@ -42,14 +42,17 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
+        return response()->json($product);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
         //
+        $product->update($request->validated());
+        return response()->json($product);
     }
 
     /**
