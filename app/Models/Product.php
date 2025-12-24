@@ -40,7 +40,7 @@ class Product extends Model
 // }
 
 
-public function inventories(){
+public function inventory(){
     return $this->hasMany(Inventory::class);
 }
 

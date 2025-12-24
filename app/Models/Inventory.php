@@ -11,4 +11,17 @@ class Inventory extends Model
     public function product(){
         return $this->belongsTo(Product::class);
     }
+
+    //Static method to update inventory
+    public static function updateInventory($product_id, $quantity, $type){
+        $inventory = self::where('product_id', $product_id)->first();
+        if ($inventory) {
+            if ($type === 'in') {
+                $inventory->quantity += $quantity;
+            } elseif ($type === 'out') {
+                $inventory->quantity -= $quantity;
+            }
+            $inventory->save();
+        }
+    }
 }
