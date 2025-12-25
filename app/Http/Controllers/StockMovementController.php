@@ -14,7 +14,9 @@ class StockMovementController extends Controller
     public function store(CreateStockMovementRequest $request)
     {
         //
-         $inventory = Inventory::where('product_id', $request->product_id)->firstOrFail();
+         $inventory = Inventory::where('product_id', $request->product_id)
+            ->where('warehouse_id', $request->location)
+         ->firstOrFail();
 
         if($inventory->quantity < $request->input('quantity') && $request->input('type') === 'out'){
             return response()->json([

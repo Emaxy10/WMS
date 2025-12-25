@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateInventoryRequest extends FormRequest
+class CreateWareHouseRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,10 @@ class CreateInventoryRequest extends FormRequest
     {
         return [
             //
-            'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:0',
-            'location' => 'nullable|string|max:255',
-            'warehouse_id' => 'nullable|integer|exists:ware_houses,id',
+            'name' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'manager_id' => 'nullable|integer|exists:users,id',
+            'address' => 'nullable|string|max:255',
         ];
     }
 }

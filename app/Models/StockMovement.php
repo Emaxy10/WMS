@@ -14,4 +14,14 @@ class StockMovement extends Model
         'type',
         'reason',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(WareHouse::class, 'warehouse_id');
+    }
 }
