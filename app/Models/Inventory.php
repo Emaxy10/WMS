@@ -30,4 +30,14 @@ class Inventory extends Model
             $inventory->save();
         }
     }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(WareHouse::class, 'warehouse_id');
+    }
+
+    public function stockMovements()
+    {
+        return $this->hasMany(StockMovement::class, 'product_id', 'product_id');
+    }
 }

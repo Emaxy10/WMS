@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\WareHouseController;
+use App\Http\Controllers\UserController;
 
 Route::post('product/create', [ProductController::class, 'store']);
 Route::get('products', [ProductController::class, 'index']);
@@ -17,3 +18,5 @@ Route::post('stock-movement/create', [StockMovementController::class, 'store']);
 
 Route::post('warehouse/create', [WareHouseController::class, 'store']);
 Route::post('inventory/create', [InventoryController::class, 'store']);
+
+Route::post('user/create', [UserController::class, 'store']);
