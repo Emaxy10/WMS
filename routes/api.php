@@ -7,6 +7,14 @@ use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\WareHouseController;
 use App\Http\Controllers\UserController;
 
+
+Route::get('sanctum/csrf-cookie', function () {
+    return response()->json(['message' => 'CSRF cookie set']);
+});
+
+Route::post('login', [UserController::class, 'login']);
+Route::post('logout', [UserController::class, 'logout']);
+
 Route::post('product/create', [ProductController::class, 'store']);
 Route::get('products', [ProductController::class, 'index']);
 Route::get('product/{product}', [ProductController::class, 'show']);
