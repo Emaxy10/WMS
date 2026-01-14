@@ -26,7 +26,7 @@ class CreateInventoryRequest extends FormRequest
             'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:0',
             'location' => 'nullable|string|max:255',
-            'warehouse_id' => 'nullable|integer|exists:ware_houses,id',
+            'warehouse_id' => 'nullable|integer|exists:warehouses,id',
         ];
     }
 }

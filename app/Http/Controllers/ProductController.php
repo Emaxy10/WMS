@@ -42,6 +42,18 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
+        // get warehouses associated with this product
+        $warehouses = $product->inventory()->with('warehouse')->get();
+
+        // Get inventories with their warehouses
+        $inventories = $product->inventory()->with('warehouse')->get();
+
+        //Extract only the warehouse objects
+        $product->warehouses = $inventories->map(function($inventory){
+            return $inventory->warehouse;
+        });
+         
+
         return response()->json($product);
     }
 

@@ -18,6 +18,10 @@ class StockMovementController extends Controller
             ->where('warehouse_id', $request->location)
          ->firstOrFail();
 
+         if (!$inventory) {
+                throw new \Exception("Inventory record not found for product_id {$product_id}");
+            }
+
         if($inventory->quantity < $request->input('quantity') && $request->input('type') === 'out'){
             return response()->json([
                 'message' => 'Insufficient stock for this movement'
@@ -37,7 +41,8 @@ class StockMovementController extends Controller
            $product_id = $request->input('product_id');
            $quantity = $request->input('quantity');
             $type = $request->input('type');
-            Inventory::updateInventory($product_id, $quantity, $type);
+            $location = $request->input('location');
+            Inventory::updateInventory($product_id, $quantity, $type, $location);
             return response()->json([
                 'message' => 'Stock movement recorded and inventory updated successfully'
             ], 201);

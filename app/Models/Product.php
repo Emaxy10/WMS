@@ -40,8 +40,8 @@ class Product extends Model
 // }
 
 
-public function inventory(){
-    return $this->hasMany(Inventory::class);
-}
+ public function inventory(){
+    return $this->hasMany(Inventory::class, 'product_id', 'id');
+    }
 
 }

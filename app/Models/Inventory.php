@@ -15,12 +15,15 @@ class Inventory extends Model
     ];
 
     public function product(){
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class , 'product_id');
     }
 
     //Static method to update inventory
-    public static function updateInventory($product_id, $quantity, $type){
-        $inventory = self::where('product_id', $product_id)->first();
+    public static function updateInventory($product_id, $quantity, $type, $location){
+        try{
+        $inventory = self::where('product_id', $product_id)
+        ->where('warehouse_id', $location)
+        ->first();
         if ($inventory) {
             if ($type === 'in') {
                 $inventory->quantity += $quantity;
@@ -29,6 +32,10 @@ class Inventory extends Model
             }
             $inventory->save();
         }
+         } catch (\Exception $e){
+        //Log error or handle accordingly
+        throw new \Exception("Failed to update inventory: " . $e->getMessage());
+         }
     }
 
     public function warehouse()

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('inventories', function (Blueprint $table) {
             //
-            $table->foreignId('warehouse_id')->nullable()->constrained('ware_houses')->nullOnDelete();
+            $table->foreignId('warehouse_id')->nullable()->constrained('warehouses')->nullOnDelete();
         });
     }
 
