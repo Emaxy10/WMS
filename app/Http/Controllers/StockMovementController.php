@@ -16,7 +16,7 @@ class StockMovementController extends Controller
     {
         //
          $inventory = Inventory::where('product_id', $request->product_id)
-            ->where('warehouse_id', $request->location)
+            ->where('warehouse_id', $request->warehouse_id)
          ->firstOrFail();
 
          //dd(Auth::id(), Auth::check());
@@ -32,7 +32,7 @@ class StockMovementController extends Controller
             'user_id' => Auth::id(),
             'product_id' => $request->input('product_id'),
             'quantity' => $request->input('quantity'),
-            'location' => $request->input('location'),
+            'warehouse_id' => $request->input('warehouse_id'),
             'type' => $request->input('type'),
             'reason' => $request->input('reason'),
         ]);
@@ -50,5 +50,12 @@ class StockMovementController extends Controller
             ], 201);
 
         
+    }
+
+    public function index()
+    {
+        //
+        $stockMovements = StockMovement::with('product', 'user', 'warehouse')->get();
+        return response()->json($stockMovements, 200);
     }
 }

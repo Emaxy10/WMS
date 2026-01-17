@@ -11,7 +11,7 @@ class StockMovement extends Model
         'user_id',
         'product_id',
         'quantity',
-        'location',
+        'warehouse_id',
         'type',
         'reason',
     ];
@@ -24,5 +24,10 @@ class StockMovement extends Model
     public function warehouse()
     {
         return $this->belongsTo(WareHouse::class, 'warehouse_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

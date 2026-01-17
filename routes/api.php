@@ -28,6 +28,7 @@ Route::delete('products/{product}', [ProductController::class, 'destroy']);
 
 Route::post('stock-movement/create', [StockMovementController::class, 'store'])
 ->middleware('auth:sanctum');
+Route::get('stock-movements', [StockMovementController::class, 'index']);
 
 
 Route::post('warehouse/create', [WareHouseController::class, 'store']);

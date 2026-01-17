@@ -57,4 +57,9 @@ class User extends Authenticatable
     public function hasRole($roleName){
         return $this->roles()->where('name', $roleName)->exists();
     }
+
+    public function stockMovements()
+    {
+        return $this->hasMany(StockMovement::class, 'user_id');
+    }
 }
