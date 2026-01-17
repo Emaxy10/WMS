@@ -26,10 +26,12 @@ Route::get('products/{product}', [ProductController::class, 'show']);
 Route::put('products/{product}', [ProductController::class, 'update']);
 Route::delete('products/{product}', [ProductController::class, 'destroy']);
 
-Route::post('stock-movement/create', [StockMovementController::class, 'store']);
+Route::post('stock-movement/create', [StockMovementController::class, 'store'])
+->middleware('auth:sanctum');
 
 
 Route::post('warehouse/create', [WareHouseController::class, 'store']);
+Route::get('warehouses', [WareHouseController::class, 'index']);
 Route::post('inventory/create', [InventoryController::class, 'store']);
 
 Route::post('user/create', [UserController::class, 'store']);

@@ -16,4 +16,9 @@ class WareHouseController extends Controller
         return response()->json($warehouse, 201);
 
     }
+    public function index()
+    {
+        $warehouses = WareHouse::all();
+        return response()->json($warehouses);
+    }
 }

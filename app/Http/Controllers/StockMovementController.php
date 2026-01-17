@@ -7,6 +7,7 @@ use App\Http\Requests\CreateStockMovementRequest;
 use App\Models\StockMovement;
 use App\Models\Inventory;
 use App\Models\Product;
+use Illuminate\Support\Facades\Auth;
 
 class StockMovementController extends Controller
 {
@@ -18,9 +19,9 @@ class StockMovementController extends Controller
             ->where('warehouse_id', $request->location)
          ->firstOrFail();
 
-         if (!$inventory) {
-                throw new \Exception("Inventory record not found for product_id {$product_id}");
-            }
+         //dd(Auth::id(), Auth::check());
+
+
 
         if($inventory->quantity < $request->input('quantity') && $request->input('type') === 'out'){
             return response()->json([
@@ -28,6 +29,7 @@ class StockMovementController extends Controller
             ], 400);
         }
         $stockMovement = StockMovement::create([
+            'user_id' => Auth::id(),
             'product_id' => $request->input('product_id'),
             'quantity' => $request->input('quantity'),
             'location' => $request->input('location'),
@@ -36,21 +38,17 @@ class StockMovementController extends Controller
         ]);
         //return response()->json($stockMovement, 201);
 
-        if(response()->json($stockMovement, 201)){
            //update inventory
-           $product_id = $request->input('product_id');
-           $quantity = $request->input('quantity');
-            $type = $request->input('type');
-            $location = $request->input('location');
-            Inventory::updateInventory($product_id, $quantity, $type, $location);
+            Inventory::updateInventory(
+             $request->product_id,
+             $request->quantity, 
+             $request->type, 
+             $request->location
+            );
             return response()->json([
                 'message' => 'Stock movement recorded and inventory updated successfully'
             ], 201);
 
-        } else {
-            return response()->json([
-                'message' => 'Failed to record stock movement'
-            ], 500);
-        }
+        
     }
 }

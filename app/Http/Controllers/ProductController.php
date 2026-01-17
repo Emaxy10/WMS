@@ -48,8 +48,10 @@ class ProductController extends Controller
         // Get inventories with their warehouses
         $inventories = $product->inventory()->with('warehouse')->get();
 
-        //Extract only the warehouse objects
+        //Extract only the warehouse objects + Produt quantities in inventories
         $product->warehouses = $inventories->map(function($inventory){
+            $inventory->warehouse->quantity = $inventory->quantity;
+            
             return $inventory->warehouse;
         });
          
