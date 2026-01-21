@@ -16,6 +16,9 @@ class Product extends Model
         'reorder_level',
         'safety_stock',
         'unit',
+        'average_daily_sales',
+        'supplier_lead_time',
+
     ];
 
     public static function generateProductCode(){

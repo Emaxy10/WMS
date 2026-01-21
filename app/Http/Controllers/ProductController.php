@@ -23,15 +23,19 @@ class ProductController extends Controller
      */
     public function store(CreateProductRequest $request)
     {
-        //
+
+        $reorder_level = $request->average_daily_sales * $request->supplier_lead_time;
+
         $product = Product::create([
             'code' => Product::generateProductCode(),
             'name' => $request->input('name'),
             'description' => $request->input('description'),
             'category' => $request->input('category'),
-            'reorder_level' => $request->input('reorder_level'),
+            'reorder_level' => $reorder_level,
             'safety_stock' => $request->input('safety_stock'),
             'unit' => $request->input('unit'),
+            'average_daily_sales' => $request->input('average_daily_sales'),
+            'supplier_lead_time' => $request->input('supplier_lead_time'),
         ]);
         return response()->json($product, 201);
     }
