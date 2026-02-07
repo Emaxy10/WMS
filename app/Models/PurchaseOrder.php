@@ -9,4 +9,16 @@ class PurchaseOrder extends Model
 {
     /** @use HasFactory<\Database\Factories\PurchaseOrderFactory> */
     use HasFactory;
+
+    protected $fillable = [
+        'product_id',
+        'client_id',
+        'warehouse_id',
+        'quantity_ordered',
+        // 'quantity_received',
+        'status',
+        'order_date',
+        'expected_delivery_date',
+        'unit_of_measure',
+    ];
 }

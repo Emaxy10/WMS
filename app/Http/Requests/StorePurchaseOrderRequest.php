@@ -24,12 +24,15 @@ class StorePurchaseOrderRequest extends FormRequest
         return [
             //
             'product_id' => 'required|exists:products,id',
-            'supplier_id' => 'required|exists:users,id',
+            'client_id' => 'required|exists:clients,id',
             'warehouse_id' => 'required|exists:warehouses,id',
             'quantity_ordered' => 'required|integer|min:1',
             'status' => 'required|in:PENDING,RECEIVED,CANCELLED',
-            'quantity_received' => 'required|integer|min:0',
-            'quantity_ordered' => 'required|integer|min:1',
+            'order_date' => 'required|date',
+            'expected_delivery_date' => 'required|date|after_or_equal:order_date',
+            'unit_of_measure' => 'required|string|max:10',
+            // 'quantity_received' => 'required|integer|min:0',
+            
         ];
     }
 }
