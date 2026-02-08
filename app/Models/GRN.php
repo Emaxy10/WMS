@@ -1,5 +1,5 @@
 <?php
-
+// Get the GRN model which represents the Goods Received Note in the inventory management system. This model will be used to interact with the 'grn' table in the database, allowing us to create, read, update, and delete GRN records.
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;

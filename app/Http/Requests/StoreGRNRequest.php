@@ -11,7 +11,7 @@ class StoreGRNRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,7 @@ class StoreGRNRequest extends FormRequest
     {
         return [
             //
+            'grn_number' => 'required|string|unique:grn,grn_number',
             'purchase_order_id' => 'required|exists:purchase_orders,id',
             'quantity_received' => 'required|integer|min:1',
             'quantity_rejected' => 'nullable|integer|min:0',

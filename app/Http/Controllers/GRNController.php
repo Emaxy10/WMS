@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreGRNRequest;
 use App\Http\Requests\UpdateGRNRequest;
+
+use App\Models\Inventory;
 use App\Models\GRN;
 
 class GRNController extends Controller
@@ -30,6 +32,25 @@ class GRNController extends Controller
     public function store(StoreGRNRequest $request)
     {
         //
+
+        try {
+            //$data = $request->validated();
+            $grn = GRN::create([
+                'grn_number' => $request->input('grn_number'),
+                'purchase_order_id' => $request->input('purchase_order_id'),
+                'quantity_received' => $request->input('quantity_received'),
+                'quantity_rejected' => $request->input('quantity_rejected'),
+                'received_date' => $request->input('received_date'),
+                'received_by' => $request->input('received_by'),
+                'remarks' => $request->input('remarks'),
+            ]);
+
+            //Stock movement happens when GRN is approved
+            return response()->json($grn, 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to create GRN', 'message' => $e->getMessage()], 500);
+        }
+        
     }
 
     /**

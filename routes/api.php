@@ -6,6 +6,7 @@ use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\WareHouseController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GRNController;
 use Illuminate\Http\Request;
 
 Route::get('sanctum/csrf-cookie', function () {
@@ -26,6 +27,12 @@ Route::get('products/{product}', [ProductController::class, 'show']);
 Route::put('products/{product}', [ProductController::class, 'update']);
 Route::delete('products/{product}', [ProductController::class, 'destroy']);
 
+//GRN routes
+Route::post('grn/create', [GRNController::class, 'store']);
+
+
+
+//stock movement routes
 Route::post('stock-movement/create', [StockMovementController::class, 'store'])
 ->middleware('auth:sanctum');
 Route::get('stock-movements', [StockMovementController::class, 'index']);

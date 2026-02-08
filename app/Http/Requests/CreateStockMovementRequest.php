@@ -23,11 +23,11 @@ class CreateStockMovementRequest extends FormRequest
     {
         return [
             //
-            'product_id' => 'required|integer|exists:products,id',
+            //'product_id' => 'required|integer|exists:products,id',
             //'user_id' => 'required|integer|exists:users,id',
-            'quantity' => 'required|integer|min:1',
+            // 'quantity' => 'required|integer|min:1',
             'warehouse_id' => 'required|integer|exists:warehouses,id',
-            'type' => 'required|string|in:in,out,adjustment',
+            //'type' => 'required|string|in:in,out,adjustment',
             'reason' => 'nullable|string|max:255',
         ];
     }
