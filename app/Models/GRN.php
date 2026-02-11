@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Str;
+
 class GRN extends Model
 {
     /** @use HasFactory<\Database\Factories\GRNFactory> */
@@ -21,6 +23,7 @@ class GRN extends Model
         'received_by',
         'remarks',
     ];
+  
 
     public function purchaseOrder()
     {
@@ -30,6 +33,14 @@ class GRN extends Model
     public function receivedBy()
     {
         return $this->belongsTo(User::class, 'received_by');
+    }
+
+    public static function generateGrnNumber()
+    {
+       do {
+            $grn_number = 'GRN-' . strtoupper(Str::random(4));
+        } while (self::where('grn_number', $grn_number)->exists());
+        return $grn_number;
     }
 
    

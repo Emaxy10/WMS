@@ -39,5 +39,10 @@ class PurchaseOrder extends Model
         return $this->belongsTo(Warehouse::class);
     }
 
+    public function grn()
+    {
+        return $this->hasOne(GRN::class);
+    }
+
     
 }

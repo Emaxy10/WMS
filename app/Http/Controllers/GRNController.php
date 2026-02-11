@@ -36,7 +36,7 @@ class GRNController extends Controller
         try {
             //$data = $request->validated();
             $grn = GRN::create([
-                'grn_number' => $request->input('grn_number'),
+                'grn_number' => GRN::generateGrnNumber(),
                 'purchase_order_id' => $request->input('purchase_order_id'),
                 'quantity_received' => $request->input('quantity_received'),
                 'quantity_rejected' => $request->input('quantity_rejected'),

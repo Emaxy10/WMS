@@ -62,4 +62,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(StockMovement::class, 'user_id');
     }
+
+    public function grnReceived()
+    {
+        return $this->hasMany(GRN::class, 'received_by');
+    }
 }
