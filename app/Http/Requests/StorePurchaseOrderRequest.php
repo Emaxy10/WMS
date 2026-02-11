@@ -11,7 +11,7 @@ class StorePurchaseOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -30,7 +30,8 @@ class StorePurchaseOrderRequest extends FormRequest
             'status' => 'required|in:PENDING,RECEIVED,CANCELLED',
             'order_date' => 'required|date',
             'expected_delivery_date' => 'required|date|after_or_equal:order_date',
-            'unit_of_measure' => 'required|string|max:10',
+           'unit_of_measure' => 'required|string|max:10',
+            'file' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,png,jpg,jpeg,txt|max:2048',
             // 'quantity_received' => 'required|integer|min:0',
             
         ];

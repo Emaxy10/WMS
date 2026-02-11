@@ -21,4 +21,16 @@ class GRN extends Model
         'received_by',
         'remarks',
     ];
+
+    public function purchaseOrder()
+    {
+        return $this->belongsTo(PurchaseOrder::class);
+    }
+
+    public function receivedBy()
+    {
+        return $this->belongsTo(User::class, 'received_by');
+    }
+
+   
 }

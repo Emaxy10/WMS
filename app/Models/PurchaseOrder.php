@@ -20,5 +20,24 @@ class PurchaseOrder extends Model
         'order_date',
         'expected_delivery_date',
         'unit_of_measure',
+        'file_path',
     ];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
+    }
+
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
+    }
+
+    
 }

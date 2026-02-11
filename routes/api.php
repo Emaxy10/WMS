@@ -7,6 +7,7 @@ use App\Http\Controllers\StockMovementController;
 use App\Http\Controllers\WareHouseController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GRNController;
+use App\Http\Controllers\PurchaseOrderController;
 use Illuminate\Http\Request;
 
 Route::get('sanctum/csrf-cookie', function () {
@@ -26,6 +27,13 @@ Route::get('products', [ProductController::class, 'index']);
 Route::get('products/{product}', [ProductController::class, 'show']);
 Route::put('products/{product}', [ProductController::class, 'update']);
 Route::delete('products/{product}', [ProductController::class, 'destroy']);
+
+//Purchase Order routes
+Route::post('purchase-order/create', [PurchaseOrderController::class, 'store']);
+Route::get('purchase-orders', [PurchaseOrderController::class, 'index']);
+Route::get('purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'show']);
+Route::put('purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'update']);
+Route::delete('purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'destroy']);
 
 //GRN routes
 Route::post('grn/create', [GRNController::class, 'store']);
