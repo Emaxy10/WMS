@@ -14,8 +14,14 @@ class Rack extends Model
         'name',
         'description',
         'zone_id',
+        'number_of_levels',
         'warehouse_id',
         'capacity',
         'current_load',
     ];
+
+    public function zone()
+    {
+        return $this->belongsTo(Zone::class);
+    }
 }

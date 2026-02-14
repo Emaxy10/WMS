@@ -13,6 +13,13 @@ return new class extends Migration
     {
         Schema::create('bins', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('description')->nullable();
+            $table->foreignId('rack_id')
+                  ->constrained()
+                  ->cascadeOnDelete();
+            $table->integer('capacity');
+            $table->interger('level');
             $table->timestamps();
         });
     }

@@ -29,6 +29,7 @@ class StoreRackRequest extends FormRequest
             "capacity" => "required|integer|min:1",
             "warehouse_id" => "required|integer|exists:warehouses,id",
             "current_load" => "required|integer|min:0",
+            "number_of_levels" => "required|integer|min:1",
         ];
     }
 }
