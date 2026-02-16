@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class WareHouse extends Model
 {
@@ -12,6 +13,7 @@ class WareHouse extends Model
     protected $table = 'warehouses';
 
     protected $fillable = [
+        'code',
         'name',
         'location',
         'manager',
@@ -31,5 +33,18 @@ class WareHouse extends Model
     public function inventories()
     {
         return $this->hasMany(Inventory::class, 'location', 'id');
+    }
+
+    public function zones()
+    {
+        return $this->hasMany(Zone::class);
+    }
+
+ public static function generateWarehouseCode()
+    {
+       do {
+            $code= 'WH-' . strtoupper(Str::random(4));
+        } while (self::where('code', $code)->exists());
+        return $code;
     }
 }

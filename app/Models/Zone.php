@@ -9,9 +9,9 @@ class Zone extends Model
     //
 
     protected $fillable = [
-        'name',
+        'code',
         'description',
-        'warehouse_id',
+        'ware_house_id',
         'type',
         'temperature_controlled',
         'restricted_access',
@@ -27,4 +27,7 @@ class Zone extends Model
     {
         return $this->hasMany(Rack::class);
     }
+
+
+  
 }

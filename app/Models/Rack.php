@@ -11,12 +11,11 @@ class Rack extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
+        'code',
         'description',
         'zone_id',
         'number_of_levels',
-        'warehouse_id',
-        'capacity',
+        'capacity_weight',
         'current_load',
     ];
 
@@ -24,4 +23,6 @@ class Rack extends Model
     {
         return $this->belongsTo(Zone::class);
     }
+
+    
 }

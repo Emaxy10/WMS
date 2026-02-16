@@ -11,11 +11,23 @@ class WareHouseController extends Controller
     //
     public function store(CreateWareHouseRequest $request)
     {
-        $data = $request->validated();
-        $warehouse = WareHouse::create($data);
+      try{
+        $warehouse = WareHouse::create([
+            'code' => WareHouse::generateWarehouseCode(),
+            'name' => $request->name,
+            'location' => $request->location,
+            'manager_id' => $request->manager_id,
+            'address' => $request->address
+        ]);
         return response()->json($warehouse, 201);
+      }catch(\Exception $e){
+        return response()->json(['error' => 'Failed to create warehouse', 'message' => $e->getMessage()], 500);
+      }
 
     }
+
+
+    
     public function index()
     {
         $warehouses = WareHouse::all();

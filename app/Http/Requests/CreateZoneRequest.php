@@ -11,7 +11,7 @@ class CreateZoneRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,9 +23,9 @@ class CreateZoneRequest extends FormRequest
     {
         return [
             //
-            "name" => "required|string",
+            "code" => "required|string",
             "description" => "required|string",
-            "warehouse_id" => "required|integer|exists:warehouses,id",
+            "ware_house_id" => "required|integer|exists:warehouses,id",
             "type" => "required|string",
             "temperature_controlled" => "required|boolean",
             "restricted_access" => "required|boolean",

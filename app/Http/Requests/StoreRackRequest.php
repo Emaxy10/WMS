@@ -11,7 +11,7 @@ class StoreRackRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,11 +23,10 @@ class StoreRackRequest extends FormRequest
     {
         return [
             //
-            "name" => "required|string",
+            //"code" => "required|string",
             "description" => "required|string",
             "zone_id" => "required|integer|exists:zones,id",
-            "capacity" => "required|integer|min:1",
-            "warehouse_id" => "required|integer|exists:warehouses,id",
+            "capacity_weight" => "required|decimal:0,2|min:0",
             "current_load" => "required|integer|min:0",
             "number_of_levels" => "required|integer|min:1",
         ];

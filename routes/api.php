@@ -9,6 +9,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GRNController;
 use App\Http\Controllers\PurchaseOrderController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\ZoneController;
+use App\Http\Controllers\RackController;
 
 Route::get('sanctum/csrf-cookie', function () {
     return response()->json(['message' => 'CSRF cookie set']);
@@ -37,6 +39,12 @@ Route::delete('purchase-orders/{purchaseOrder}', [PurchaseOrderController::class
 
 //GRN routes
 Route::post('grn/create', [GRNController::class, 'store']);
+
+//Zone routes
+Route::post('zone/create', [ZoneController::class, 'store']);
+
+//Rack routes
+Route::post('rack/create', [RackController::class, 'store']);
 
 
 
