@@ -23,6 +23,12 @@ class StoreBinRequest extends FormRequest
     {
         return [
             //
+
+            'code' => 'required|string|max:255|unique:bins,code',
+            'description' => 'nullable|string|max:255',
+            'rack_id' => 'required|integer|exists:racks,id',
+            'capacity' => 'required|integer|min:0',
+            'level' => 'required|integer|min:1',
         ];
     }
 }

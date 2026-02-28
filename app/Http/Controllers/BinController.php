@@ -30,6 +30,31 @@ class BinController extends Controller
     public function store(StoreBinRequest $request)
     {
         //
+
+            try {
+                    $rack = Rack::findOrFail($request->rack_id);
+                    $total_bins = $rack->bins()->count();
+                    if ($total_bins >= 50) {
+                        throw new \Exception('Rack has reached maximum bin capacity');
+                    }
+
+                    if($total_bins >= 0){
+                        $last_bin_number = $total_bins +1;
+                    } else {
+                        $last_bin_number = 1;
+                    }
+
+                $bin = Bin::create([
+                    'code' => $rack->code . '-BIN-' . str_pad($last_bin_number, 2, '0', STR_PAD_LEFT),
+                    'description' => $request->description,
+                    'rack_id' => $request->rack_id,
+                    'capacity' => $request->capacity,
+                    'level' => $request->level,
+                ]);
+                return response()->json($bin, 201);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to create bin', 'message' => $e->getMessage()], 500);
+            }
     }
 
     /**
