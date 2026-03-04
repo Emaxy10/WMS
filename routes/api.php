@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\RackController;
 
+
+
 Route::get('sanctum/csrf-cookie', function () {
     return response()->json(['message' => 'CSRF cookie set']);
 });

@@ -11,7 +11,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,8 +26,8 @@ class UpdateProductRequest extends FormRequest
             "name" => "required|string",
             "description" => "nullable|string",
             "category" => "required|string",
-            "reorder_level" => "required|integer|min:0",
-            "safety_stock" => "required|integer|min:0",
+            "reorder_level" => "nullable|integer|min:0",
+            "safety_stock" => "nullable|integer|min:0",
             "unit" => "required|string",
         ];
     }
