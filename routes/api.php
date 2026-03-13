@@ -11,6 +11,7 @@ use App\Http\Controllers\PurchaseOrderController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\RackController;
+use App\Http\Controllers\ClientController;
 
 
 
@@ -61,3 +62,8 @@ Route::get('warehouses', [WareHouseController::class, 'index']);
 Route::post('inventory/create', [InventoryController::class, 'store']);
 
 Route::post('user/create', [UserController::class, 'store']);
+
+//Client routes
+Route::post('client/create', [ClientController::class, 'store']);
+Route::get('clients', [ClientController::class, 'index']);
+Route::get('clients/{client}', [ClientController::class, 'show']);
