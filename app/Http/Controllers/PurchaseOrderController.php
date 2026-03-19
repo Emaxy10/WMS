@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePurchaseOrderRequest;
 use App\Http\Requests\UpdatePurchaseOrderRequest;
 use Illuminate\Support\Facades\Storage;
+//use App\Models\Warehouse;
 
 use App\Models\PurchaseOrder;
 
@@ -16,6 +17,12 @@ class PurchaseOrderController extends Controller
     public function index()
     {
         //
+        try{
+            return response()->json(PurchaseOrder::with(['product', 'client', 'warehouse'])->get());
+        }
+        catch(\Exception $e){
+             return response()->json(['error' => 'Failed to getpurchase orders', 'message' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -24,6 +31,7 @@ class PurchaseOrderController extends Controller
     public function create()
     {
         //
+
     }
 
     /**
@@ -68,7 +76,7 @@ class PurchaseOrderController extends Controller
     public function show(PurchaseOrder $purchaseOrder)
     {
         //
-        return response()->json($purchaseOrder);
+        return response()->json($purchaseOrder->load(['product', 'client', 'warehouse', 'grn']));
     }
 
     /**
@@ -93,5 +101,23 @@ class PurchaseOrderController extends Controller
     public function destroy(PurchaseOrder $purchaseOrder)
     {
         //
+    }
+
+    //download file
+    public function downloadFile(PurchaseOrder $purchaseOrder)
+    {
+        try{
+            if (!$purchaseOrder->file_path || !Storage::exists($purchaseOrder->file_path)) {
+                
+
+                return response()->json(['error' => 'File not found'], 404);
+            }
+             //dd($purchaseOrder->file_path); 
+    
+            return Storage::download($purchaseOrder->file_path);
+        }
+        catch(\Exception $e){
+             return response()->json(['error' => 'Failed to download file', 'message' => $e->getMessage()], 500);
+        }
     }
 }

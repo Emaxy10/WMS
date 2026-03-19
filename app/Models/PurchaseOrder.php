@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Product;
+use App\Models\Client;
+use App\Models\WareHouse;
+use App\Models\GRN;
 
 class PurchaseOrder extends Model
 {
