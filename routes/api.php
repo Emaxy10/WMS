@@ -41,6 +41,7 @@ Route::put('purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, '
 Route::delete('purchase-orders/{purchaseOrder}', [PurchaseOrderController::class, 'destroy']);
 //Route::get('purchase-orders/{purchaseOrder}/grn', [PurchaseOrderController::class, 'getGrn']);
 Route::get('purchase-orders/{purchaseOrder}/download-file', [PurchaseOrderController::class, 'downloadFile']);
+Route::put('purchase-orders/{purchaseOrder}/approve', [PurchaseOrderController::class, 'approve']);
 
 //GRN routes
 Route::post('grn/create', [GRNController::class, 'store']);

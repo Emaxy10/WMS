@@ -101,6 +101,18 @@ class PurchaseOrderController extends Controller
     public function destroy(PurchaseOrder $purchaseOrder)
     {
         //
+        try {
+                // Delete the associated file if it exists
+                if ($purchaseOrder->file_path && Storage::exists($purchaseOrder->file_path)) {
+                    Storage::delete($purchaseOrder->file_path);
+                }
+    
+                $purchaseOrder->delete();
+    
+                return response()->json(['message' => 'Purchase order deleted successfully']);
+            } catch (\Exception $e) {
+                return response()->json(['error' => 'Failed to delete purchase order', 'message' => $e->getMessage()], 500);
+            }
     }
 
     //download file
@@ -118,6 +130,32 @@ class PurchaseOrderController extends Controller
         }
         catch(\Exception $e){
              return response()->json(['error' => 'Failed to download file', 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    //approve purchase order
+    public function approve(PurchaseOrder $purchaseOrder)
+    {        try{
+                $purchaseOrder->status = 'received';
+                $purchaseOrder->is_approved = true;
+                $purchaseOrder->save();     
+            return response()->json(['message' => 'Purchase order approved successfully']); 
+            }
+            catch(\Exception $e){
+                return response()->json(['error' => 'Failed to approve purchase order', 'message' => $e->getMessage()], 500);  
+            }
+    }
+
+    //reject purchase order
+    public function reject(PurchaseOrder $purchaseOrder){
+        try{
+            $purchaseOrder->status = 'rejected';
+            $purchaseOrder->is_approved = false;
+            $purchaseOrder->save();     
+        return response()->json(['message' => 'Purchase order rejected successfully']); 
+        }
+        catch(\Exception $e){
+            return response()->json(['error' => 'Failed to reject purchase order', 'message' => $e->getMessage()], 500);  
         }
     }
 }
