@@ -52,6 +52,7 @@ class PurchaseOrderController extends Controller
 
             }
         $data = PurchaseOrder::create([
+                'code' => PurchaseOrder::generatePurchaseOrderCode(),
                 'product_id' => $request->product_id,
                 'client_id' => $request->client_id,
                 'warehouse_id' => $request->warehouse_id,

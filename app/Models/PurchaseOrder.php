@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Client;
 use App\Models\WareHouse;
 use App\Models\GRN;
+use Illuminate\Support\Str;
 
 class PurchaseOrder extends Model
 {
@@ -15,6 +16,7 @@ class PurchaseOrder extends Model
     use HasFactory;
 
     protected $fillable = [
+
         'product_id',
         'client_id',
         'warehouse_id',
@@ -25,6 +27,7 @@ class PurchaseOrder extends Model
         'expected_delivery_date',
         'unit_of_measure',
         'file_path',
+        'code',
     ];
 
     public function product()
@@ -46,6 +49,14 @@ class PurchaseOrder extends Model
     public function grn()
     {
         return $this->hasOne(GRN::class);
+    }
+
+     public static function generatePurchaseOrderCode()
+    {
+       do {
+            $order_code = 'PO-' . strtoupper(Str::random(4));
+        } while (self::where('code', $order_code)->exists());
+        return $order_code;
     }
 
     
