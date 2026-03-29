@@ -67,4 +67,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(GRN::class, 'received_by');
     }
+
+    public function warehouse(){
+        return $this->belongsTo(WareHouse::class, 'warehouse_id');
+    }
 }

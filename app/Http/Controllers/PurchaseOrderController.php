@@ -94,6 +94,12 @@ class PurchaseOrderController extends Controller
     public function update(UpdatePurchaseOrderRequest $request, PurchaseOrder $purchaseOrder)
     {
         //
+        try {
+            $purchaseOrder->update($request->validated());
+            return response()->json($purchaseOrder);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to update purchase order', 'message' => $e->getMessage()], 500);
+        }
     }
 
     /**
@@ -137,7 +143,6 @@ class PurchaseOrderController extends Controller
     //approve purchase order
     public function approve(PurchaseOrder $purchaseOrder)
     {        try{
-                $purchaseOrder->status = 'received';
                 $purchaseOrder->is_approved = true;
                 $purchaseOrder->save();     
             return response()->json(['message' => 'Purchase order approved successfully']); 

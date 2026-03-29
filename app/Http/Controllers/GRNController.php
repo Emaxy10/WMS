@@ -34,6 +34,11 @@ class GRNController extends Controller
         //
 
         try {
+            //check if purchase order exists in grn table, if it does, return error
+            $existingGrn = GRN::where('purchase_order_id', $request->input('purchase_order_id'))->first();
+            if ($existingGrn) {
+                return response()->json(['error' => 'A GRN already exists for this purchase order.'], 400);
+            }
             //$data = $request->validated();
             $grn = GRN::create([
                 'grn_number' => GRN::generateGrnNumber(),

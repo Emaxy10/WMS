@@ -11,7 +11,7 @@ class UpdatePurchaseOrderRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,6 +23,7 @@ class UpdatePurchaseOrderRequest extends FormRequest
     {
         return [
             //
+            'status' => 'required|in:PENDING,RECEIVED,CANCELLED',
         ];
     }
 }

@@ -40,6 +40,10 @@ class WareHouse extends Model
         return $this->hasMany(Zone::class);
     }
 
+    public function users(){
+        return $this->hasMany(User::class, 'warehouse_id');
+    }
+
  public static function generateWarehouseCode()
     {
        do {
