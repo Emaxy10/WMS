@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePurchaseOrderRequest;
 use App\Http\Requests\UpdatePurchaseOrderRequest;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth; 
+
 //use App\Models\Warehouse;
 
 use App\Models\PurchaseOrder;

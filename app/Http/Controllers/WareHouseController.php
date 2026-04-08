@@ -33,4 +33,14 @@ class WareHouseController extends Controller
         $warehouses = WareHouse::all();
         return response()->json($warehouses);
     }
+
+    public function showWarehouseUsers($id)
+    {
+        try {
+            $warehouse = WareHouse::with('users')->findOrFail($id);
+            return response()->json($warehouse->users);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to get warehouse users', 'message' => $e->getMessage()], 500);
+        }
+    }
 }
