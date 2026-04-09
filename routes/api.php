@@ -65,6 +65,7 @@ Route::get('stock-movements', [StockMovementController::class, 'index']);
 Route::post('warehouse/create', [WareHouseController::class, 'store']);
 Route::get('warehouses', [WareHouseController::class, 'index']);
 Route::post('inventory/create', [InventoryController::class, 'store']);
+Route::get('warehouses/users', [WareHouseController::class, 'showWarehouseUsers'])->middleware('auth:sanctum');
 
 Route::post('user/create', [UserController::class, 'store']);
 

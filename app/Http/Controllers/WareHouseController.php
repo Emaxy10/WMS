@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WareHouse;
 use App\Http\Requests\CreateWareHouseRequest;
+use Illuminate\Support\Facades\Auth;
 
 class WareHouseController extends Controller
 {
@@ -34,13 +35,13 @@ class WareHouseController extends Controller
         return response()->json($warehouses);
     }
 
-    public function showWarehouseUsers($id)
+    public function showWarehouseUsers()
     {
-        try {
-            $warehouse = WareHouse::with('users')->findOrFail($id);
-            return response()->json($warehouse->users);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to get warehouse users', 'message' => $e->getMessage()], 500);
-        }
+       //get authenticated user
+       $user = auth()->user();
+
+       //get authenticated user warehouse
+       $warehouse = $user->warehouse;
+       return response()->json($warehouse->users);
     }
 }
