@@ -7,6 +7,10 @@ use App\Http\Requests\UpdateGRNRequest;
 
 use App\Models\Inventory;
 use App\Models\GRN;
+use App\Models\StockMovement;
+use App\Models\PurchaseOrder;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GRNController extends Controller
 {
@@ -26,37 +30,60 @@ class GRNController extends Controller
         //
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(StoreGRNRequest $request)
-    {
-        //
 
-        try {
-            //check if purchase order exists in grn table, if it does, return error
-            $existingGrn = GRN::where('purchase_order_id', $request->input('purchase_order_id'))->first();
-            if ($existingGrn) {
-                return response()->json(['error' => 'A GRN already exists for this purchase order.'], 400);
-            }
-            //$data = $request->validated();
-            $grn = GRN::create([
-                'grn_number' => GRN::generateGrnNumber(),
-                'purchase_order_id' => $request->input('purchase_order_id'),
-                'quantity_received' => $request->input('quantity_received'),
-                'quantity_rejected' => $request->input('quantity_rejected'),
-                'received_date' => $request->input('received_date'),
-                'received_by' => $request->input('received_by'),
-                'remarks' => $request->input('remarks'),
-            ]);
 
-            //Stock movement happens when GRN is approved
-            return response()->json($grn, 201);
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Failed to create GRN', 'message' => $e->getMessage()], 500);
+public function store(StoreGRNRequest $request)
+{
+    try {
+
+        $existingGrn = GRN::where('purchase_order_id', $request->input('purchase_order_id'))->first();
+
+        if ($existingGrn) {
+            return response()->json(['error' => 'A GRN already exists for this purchase order.'], 400);
         }
-        
+
+        // 🔥 GET PO
+        $po = PurchaseOrder::findOrFail($request->input('purchase_order_id'));
+
+        // CREATE GRN
+        $grn = GRN::create([
+            'grn_number' => GRN::generateGrnNumber(),
+            'purchase_order_id' => $po->id,
+            'quantity_received' => $request->input('quantity_received'),
+            'quantity_rejected' => $request->input('quantity_rejected'),
+            'received_date' => $request->input('received_date'),
+            'received_by' => $request->input('received_by'),
+            'remarks' => $request->input('remarks'),
+        ]);
+
+        // 🔥 CREATE STOCK MOVEMENT
+        StockMovement::create([
+            'product_id' => $po->product_id,
+            'purchase_order_id' => $po->id,
+            'quantity' => $request->input('quantity_received'),
+            'warehouse_id' => $po->warehouse_id,
+            'type' => 'in',
+            'reason' => 'GRN created for PO: ' . $po->id,
+        ]);
+
+
+         //update inventory
+            Inventory::updateInventory(
+             $po->product_id,
+             $request->input('quantity_received'),
+             'in',
+            $po->warehouse_id
+            );
+
+        return response()->json($grn, 201);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'error' => 'Failed to create GRN',
+            'message' => $e->getMessage()
+        ], 500);
     }
+}
 
     /**
      * Display the specified resource.
