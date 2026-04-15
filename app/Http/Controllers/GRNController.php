@@ -91,6 +91,7 @@ public function store(StoreGRNRequest $request)
     public function show(GRN $gRN)
     {
         //
+        
     }
 
     /**
