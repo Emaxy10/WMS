@@ -19,7 +19,7 @@ Route::get('sanctum/csrf-cookie', function () {
     return response()->json(['message' => 'CSRF cookie set']);
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:sanctum')->get('user', function (Request $request) {
     return $request->user();
 });
 
@@ -67,7 +67,6 @@ Route::get('warehouses', [WareHouseController::class, 'index']);
 Route::post('inventory/create', [InventoryController::class, 'store']);
 Route::get('warehouses/users', [WareHouseController::class, 'showWarehouseUsers'])->middleware('auth:sanctum');
 
-Route::post('user/create', [UserController::class, 'store']);
 
 //Client routes
 Route::post('client/create', [ClientController::class, 'store']);

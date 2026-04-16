@@ -47,4 +47,9 @@ class Product extends Model
     return $this->hasMany(Inventory::class, 'product_id', 'id');
     }
 
+    public function putAways()
+    {
+        return $this->hasMany(PutAway::class);
+    }
+
 }

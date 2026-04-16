@@ -72,4 +72,9 @@ class User extends Authenticatable
     public function warehouse(){
         return $this->belongsTo(WareHouse::class, 'warehouse_id');
     }
+
+    public function putAways()
+    {
+        return $this->hasMany(PutAway::class);
+    }
 }

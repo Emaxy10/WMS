@@ -23,6 +23,14 @@ class StorePutAwayRequest extends FormRequest
     {
         return [
             //
+
+                'grn_id' => 'required|exists:grns,id',
+                'product_id' => 'required|exists:products,id',
+                'warehouse_id' => 'required|exists:warehouses,id',
+                'user_id' => 'required|exists:users,id',
+                // 'zone_id' => 'required|exists:zones,id',
+                // 'rack_id' => 'required|exists:racks,id',
+                'quantity' => 'required|integer|min:1',
         ];
     }
 }

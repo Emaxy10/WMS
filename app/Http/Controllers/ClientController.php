@@ -37,9 +37,15 @@ class ClientController extends Controller
     {
         //
         try {
-             $validatedData = $request->validated();
-            $validatedData['code'] = Client::generateClientCode();
-            Client::create($validatedData); 
+
+        dd($request->all());
+             $clients = Client::create([
+                'code '=> Client::generateClientCode(),
+                'name' => $request->input('name'),
+                "business_reg_number" => $request->input('business_reg_number'),
+                "business_type" => $request->input('business_type'),
+                "billing_address" => $request->input('billing_address'),
+             ]);
             return response()->json(['message' => 'Client created successfully'], 201);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to create client', 'message' => $e->getMessage()], 500);

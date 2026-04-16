@@ -30,6 +30,14 @@ class PutAwayController extends Controller
     public function store(StorePutAwayRequest $request)
     {
         //
+
+        $validatedData = $request->validated();
+        $putAway = PutAway::create($validatedData);
+        return response()->json([
+            'message' => 'PutAway created successfully',
+            'data' => $putAway
+        ], 201);
+
     }
 
     /**

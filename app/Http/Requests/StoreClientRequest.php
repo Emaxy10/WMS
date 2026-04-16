@@ -23,7 +23,7 @@ class StoreClientRequest extends FormRequest
     {
         return [
             //
-            "code" => "required|string|unique:clients,code",
+            
             "name" => "required|string",
             "business_reg_number" => "required|string|unique:clients,business_reg_number",
             "business_type" => "required|string",

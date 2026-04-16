@@ -43,5 +43,10 @@ class GRN extends Model
         return $grn_number;
     }
 
+    public function putAways()
+    {
+        return $this->hasMany(PutAway::class);
+    }
+
    
 }
