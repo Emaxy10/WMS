@@ -28,6 +28,8 @@ class PurchaseOrder extends Model
         'unit_of_measure',
         'file_path',
         'code',
+        'is_approved',
+        'is_rejected',
     ];
 
     public function product()

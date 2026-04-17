@@ -146,6 +146,7 @@ class PurchaseOrderController extends Controller
     public function approve(PurchaseOrder $purchaseOrder)
     {        try{
                 $purchaseOrder->is_approved = true;
+                $purchaseOrder->is_rejected = false;
                 $purchaseOrder->save();     
             return response()->json(['message' => 'Purchase order approved successfully']); 
             }
@@ -157,8 +158,9 @@ class PurchaseOrderController extends Controller
     //reject purchase order
     public function reject(PurchaseOrder $purchaseOrder){
         try{
-            $purchaseOrder->status = 'rejected';
+            //$purchaseOrder->status = 'rejected';
             $purchaseOrder->is_approved = false;
+            $purchaseOrder->is_rejected = true;
             $purchaseOrder->save();     
         return response()->json(['message' => 'Purchase order rejected successfully']); 
         }
