@@ -47,10 +47,11 @@ class GRNService
             // 🔥 CREATE STOCK MOVEMENT
             StockMovement::create([
                 'product_id' => $po->product_id,
+                'warehouse_id' => $po->warehouse_id,
                 'quantity' => $data['quantity_received'] - $data['quantity_rejected'],
-                'movement_type' => 'IN',
-                'reference_id' => $grn->id,
-                'reference_type' => GRN::class,
+                'type' => 'IN',
+                'reason' => 'GRN Creation',
+                'user_id' => Auth::id(),
             ]);
 
             // 🔥 CREATE PUT AWAY
@@ -58,7 +59,7 @@ class GRNService
                 'grn_id' => $grn->id,
                 'product_id' => $po->product_id,
                 'warehouse_id' => $po->warehouse_id,
-                'user_id' => Auth::id(),
+                'user_id' => null,
                 'quantity' => $data['quantity_received'] - $data['quantity_rejected'],
                 'status' => 'PENDING',
             ]);
