@@ -6,6 +6,7 @@ use App\Http\Requests\StoreClientRequest;
 use App\Http\Requests\UpdateClientRequest;
 use App\Models\Client;
 
+
 class ClientController extends Controller
 {
     /**
@@ -38,9 +39,10 @@ class ClientController extends Controller
         //
         try {
 
-        dd($request->all());
+        //dd($request->all());
+
              $clients = Client::create([
-                'code '=> Client::generateClientCode(),
+                'code'=> Client::generateClientCode(),
                 'name' => $request->input('name'),
                 "business_reg_number" => $request->input('business_reg_number'),
                 "business_type" => $request->input('business_type'),
