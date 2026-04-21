@@ -44,6 +44,11 @@ class WareHouse extends Model
         return $this->hasMany(User::class, 'warehouse_id');
     }
 
+    public function putAways()
+    {
+        return $this->hasMany(PutAway::class, 'warehouse_id');
+    }
+
  public static function generateWarehouseCode()
     {
        do {

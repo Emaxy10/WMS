@@ -20,9 +20,10 @@ class PutAway extends Model
     ];
 
 
+
     public function grn()
     {
-        return $this->belongsTo(Grn::class);
+        return $this->belongsTo(GRN::class);
     }
 
 
@@ -34,7 +35,7 @@ class PutAway extends Model
 
     public function warehouse()
     {
-        return $this->belongsTo(Warehouse::class);
+        return $this->belongsTo(WareHouse::class);
     }
 
     public function user()

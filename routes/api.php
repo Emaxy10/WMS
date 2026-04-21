@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\ZoneController;
 use App\Http\Controllers\RackController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\PutAwayController;
 
 
 
@@ -73,3 +74,7 @@ Route::get('warehouses/users', [WareHouseController::class, 'showWarehouseUsers'
 Route::post('client/create', [ClientController::class, 'store']);
 Route::get('clients', [ClientController::class, 'index']);
 Route::get('clients/{client}', [ClientController::class, 'show']);
+
+
+//PutAway routes
+Route::get('putaways', [PutAwayController::class, 'index']);

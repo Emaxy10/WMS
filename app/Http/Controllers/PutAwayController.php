@@ -14,6 +14,12 @@ class PutAwayController extends Controller
     public function index()
     {
         //
+        //get put away list with warehouse and product details
+        $putAways = PutAway::with(['warehouse', 'product', 'grn'])->get();
+        return response()->json([
+            'message' => 'PutAway list retrieved successfully',
+            'data' => $putAways
+        ], 200);
     }
 
     /**
