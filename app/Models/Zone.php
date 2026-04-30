@@ -11,7 +11,7 @@ class Zone extends Model
     protected $fillable = [
         'code',
         'description',
-        'ware_house_id',
+        'warehouse_id',
         'type',
         'temperature_controlled',
         'restricted_access',

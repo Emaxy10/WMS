@@ -23,12 +23,12 @@ class CreateZoneRequest extends FormRequest
     {
         return [
             //
-            "code" => "required|string",
+           // "code" => "required|string",
             "description" => "required|string",
             "ware_house_id" => "required|integer|exists:warehouses,id",
-            "type" => "required|string",
-            "temperature_controlled" => "required|boolean",
-            "restricted_access" => "required|boolean",
+            "type" => "nullable|string",
+            "temperature_controlled" => "nullable|boolean",
+            "restricted_access" => "nullable|boolean",
     ];
     }
 }
