@@ -52,6 +52,7 @@ Route::post('grn/create', [GRNController::class, 'store']);
 
 //Zone routes
 Route::post('zone/create', [ZoneController::class, 'store']);
+Route::get('zones', [ZoneController::class, 'index']);
 
 //Rack routes
 Route::post('rack/create', [RackController::class, 'store']);

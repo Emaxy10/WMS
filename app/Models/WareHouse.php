@@ -37,7 +37,7 @@ class WareHouse extends Model
 
     public function zones()
     {
-        return $this->hasMany(Zone::class);
+        return $this->hasMany(Zone::class, 'warehouse_id');
     }
 
     public function users(){

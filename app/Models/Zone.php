@@ -9,18 +9,19 @@ class Zone extends Model
     //
 
     protected $fillable = [
-        'code',
+        
         'description',
         'warehouse_id',
         'type',
         'temperature_controlled',
         'restricted_access',
+        'code',
 
     ];
 
     public function warehouse()
     {
-        return $this->belongsTo(Warehouse::class);
+        return $this->belongsTo(Warehouse::class, 'warehouse_id');
     }
 
     public function racks()

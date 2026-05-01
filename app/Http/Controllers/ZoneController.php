@@ -13,7 +13,8 @@ class ZoneController extends Controller
     public function store(CreateZoneRequest $request)
     {
         try{
-            $warehouse = Warehouse::findOrFail($request->ware_house_id);
+            $warehouse = Warehouse::findOrFail($request->warehouse_id);
+            
             $total_zones = $warehouse->zones()->count();
            // dd($total_zones);
             if ($total_zones >= 10) {
@@ -27,16 +28,26 @@ class ZoneController extends Controller
             }
             $zone = Zone::create([
                 'description' => $request->description,
-                'ware_house_id' => $request->ware_house_id,
+                'warehouse_id' => $request->warehouse_id,
                 'type' => $request->type,
                 'temperature_controlled' => $request->temperature_controlled,
                 'restricted_access' => $request->restricted_access,
                 'code' => $warehouse->code . '-ZN-' . str_pad($last_zone_number, 3, '0', STR_PAD_LEFT),
             ]);
+
+           // dd($zone);
+            
             return response()->json($zone, 201);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Failed to create zone', 'message' => $e->getMessage()], 500);
         }
        
+    }
+
+    public function index()
+    {
+        //with racks and bins
+        $zones = Zone::with('racks.bins')->get();
+        return response()->json($zones);
     }
 }
